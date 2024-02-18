@@ -51,7 +51,7 @@ for name in pet_names:
     pet_name_counts[name] = df[name].sum()
 top_5_pet_names = sorted(pet_name_counts.items(), key=lambda x: x[1], reverse=True)[:5]
 
-print("The top 5 pet names are:")
+print("\nThe top 5 pet names are:")
 for name, count in top_5_pet_names:
     print(f"'{name}' appears {count} times")
 
@@ -65,7 +65,7 @@ for name, count in top_5_pet_names:
 
 # Average characters per text per person
 avg_chars_per_text = df.groupby('sent_by')['content'].apply(lambda x: x.str.len().mean()).to_dict()
-print("Average characters per text:")
+print("\nAverage characters per text:")
 for person, avg_chars in avg_chars_per_text.items():
     print(person, ": ", avg_chars)
 
@@ -106,7 +106,6 @@ for person, count in conversation_starts.items():
 # Conversation enders
 df['is_conversation_end'] = df['time_diff'].shift(-1) > threshold
 conversation_ends = df[df['is_conversation_end']]['sent_by'].value_counts()
-
 print("\nNumber of times each person ended a conversation:")
 for person, count in conversation_ends.items():
     print(f"{person}: {count} times")
