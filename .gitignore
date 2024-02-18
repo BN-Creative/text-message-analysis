@@ -2,3 +2,4 @@
 /.venv
 /parsed_data
 /intermediate_data
+/notebooks
