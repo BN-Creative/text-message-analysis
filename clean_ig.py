@@ -6,6 +6,10 @@ import re
 IG_LOG = 'parsed_data/ig_dms.csv'
 ig_df = pd.read_csv(IG_LOG)
 
+# filter out reaction messages
+reaction_pattern = r'Reacted (.*?) to your message'
+ig_df = ig_df[ig_df['content'].apply(lambda x: not bool(re.search(reaction_pattern, x)) if isinstance(x, str) else True)]
+
 # filter out start call messages
 ig_df[ig_df['content'].apply(lambda x: 'started an audio call' not in x if isinstance(x, str) else True)]
 

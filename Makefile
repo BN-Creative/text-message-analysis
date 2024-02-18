@@ -1,3 +1,5 @@
 
 parse: 
-	python parse_xml.py parse_ig.py clean_ig.py
+	python parse_xml.py 
+	python parse_ig.py 
+	python clean_ig.py
