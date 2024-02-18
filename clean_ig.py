@@ -11,7 +11,7 @@ reaction_pattern = r'Reacted (.*?) to your message'
 ig_df = ig_df[ig_df['content'].apply(lambda x: not bool(re.search(reaction_pattern, x)) if isinstance(x, str) else True)]
 
 # filter out start call messages
-ig_df[ig_df['content'].apply(lambda x: 'started an audio call' not in x if isinstance(x, str) else True)]
+ig_df = ig_df[ig_df['content'].apply(lambda x: 'started an audio call' not in x if isinstance(x, str) else True)]
 
 # make a separate df for calls
 ig_calls = ig_df[ig_df['call_duration'].notna()]
