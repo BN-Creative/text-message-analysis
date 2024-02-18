@@ -13,6 +13,9 @@ ig_df = ig_df[ig_df['content'].apply(lambda x: not bool(re.search(reaction_patte
 # filter out start call messages
 ig_df = ig_df[ig_df['content'].apply(lambda x: 'started an audio call' not in x if isinstance(x, str) else True)]
 
+# filter out add to collection messages
+ig_df = ig_df[ig_df['content'].apply(lambda x: 'added to a collection' not in x if isinstance(x, str) else True)]
+
 # make a separate df for calls
 ig_calls = ig_df[ig_df['call_duration'].notna()]
 ig_df = ig_df[ig_df['call_duration'].isna()]
