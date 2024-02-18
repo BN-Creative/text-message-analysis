@@ -88,3 +88,25 @@ total_chars_per_person = df.groupby('sent_by')['char_count'].sum().to_dict()
 print("\nTotal characters per person:")
 for person, total_chars in total_chars_per_person.items():
     print(f"{person}: {total_chars} characters")
+
+
+# ---- Who Texts First and Last? ---- #
+df['datetime'] = pd.to_datetime(df['datetime'])
+df = df.sort_values('datetime')
+df['time_diff'] = df['datetime'].diff()
+threshold = pd.Timedelta(hours=1) # 1 hour threshold between conversations
+
+# Conversation starters
+df['is_conversation_start'] = df['time_diff'] > threshold
+conversation_starts = df[df['is_conversation_start']]['sent_by'].value_counts()
+print("\nNumber of times each person started a conversation:")
+for person, count in conversation_starts.items():
+    print(f"{person}: {count} times")
+
+# Conversation enders
+df['is_conversation_end'] = df['time_diff'].shift(-1) > threshold
+conversation_ends = df[df['is_conversation_end']]['sent_by'].value_counts()
+
+print("\nNumber of times each person ended a conversation:")
+for person, count in conversation_ends.items():
+    print(f"{person}: {count} times")
