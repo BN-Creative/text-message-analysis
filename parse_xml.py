@@ -6,7 +6,7 @@ SMS_DATA = 'data/sms_conversation.xml'
 CALL_DATA = 'data/nathans_calls.xml'
 
 
-# Get SMS messages from xml
+# ---- Get SMS messages from xml ---- #
 tree = ET.parse(SMS_DATA)
 root = tree.getroot()
 
@@ -21,7 +21,7 @@ df[['date', 'author', 'body', 'readable_date']].head(30)
 df[['date', 'author', 'body', 'readable_date']].to_csv('parsed_data/sms_conversation.csv', index=False)
 
 
-# Get MMS messages from xml
+# ---- Get MMS messages from xml --- #
 tree = ET.parse(SMS_DATA)
 root = tree.getroot()
 
@@ -41,7 +41,7 @@ for column in df.columns:
         print(f'{column}: {df[column].nunique()} unique values')
 
 
-# Get SMS messages from xml
+# ---- Get calls from xml ---- #
 tree = ET.parse(CALL_DATA)
 root = tree.getroot()
 root[0].attrib.keys()

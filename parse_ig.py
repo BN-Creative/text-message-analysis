@@ -2,7 +2,7 @@ import json
 import csv
 
 
-# Combine all the ig_dms files into one file 
+# ---- Combine all the ig_dms files into one file ---- #
 file_names = ['data/ig_dms_1.json', 'data/ig_dms_2.json', 'data/ig_dms_3.json']
 all_messages = []
 
@@ -15,7 +15,7 @@ with open('data/ig_dms_combined.json', 'w') as file:
     json.dump({"messages": all_messages}, file)
 
 
-# Parse the data and write to a CSV file 
+# ---- Parse the data and write to a CSV file ---- #
 with open('data/ig_dms_combined.json', 'r') as file:
     data = json.load(file)
 

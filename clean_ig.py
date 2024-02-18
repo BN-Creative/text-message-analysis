@@ -2,7 +2,7 @@ import pandas as pd
 import re
 
 
-# Categorize Instagram Messages
+# ---- Categorize Instagram Messages ---- #
 IG_LOG = 'parsed_data/ig_dms.csv'
 ig_df = pd.read_csv(IG_LOG)
 
@@ -32,7 +32,7 @@ ig_calls.to_csv('intermediate_data/ig_calls.csv', index=False)
 ig_media.to_csv('intermediate_data/ig_media.csv', index=False)
 
 
-# Categorize SMS Messages
+# ---- Categorize SMS Messages ---- #
 SMS_LOG = 'parsed_data/sms_conversation.csv'
 sms_df = pd.read_csv(SMS_LOG)
 
@@ -55,3 +55,20 @@ for verb in verbs:
 
 reactions_df.to_csv('intermediate_data/sms_reactions.csv', index=False)
 sms_df.to_csv('intermediate_data/sms_msgs.csv', index=False)
+
+
+# ---- Combine Instagram and SMS Messages ---- #
+sms_msgs = pd.read_csv('intermediate_data/sms_msgs.csv')
+ig_msgs = pd.read_csv('intermediate_data/ig_msgs.csv')
+
+# Rename the columns in sms_msgs
+sms_msgs = sms_msgs.rename(columns={'date': 'timestamp_ms', 'author': 'sent_by', 'body': 'content'})
+
+# Rename the columns in ig_msgs
+ig_msgs = ig_msgs.rename(columns={'sender_name': 'sent_by'})
+
+# Concatenate the two dataframes
+all_msgs = pd.concat([sms_msgs, ig_msgs], ignore_index=True)
+
+# Save the resulting dataframe
+all_msgs[['timestamp_ms', 'sent_by', 'content', 'reaction']].to_csv('intermediate_data/all_msgs.csv', index=False)
