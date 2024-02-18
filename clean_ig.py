@@ -77,7 +77,7 @@ all_msgs = pd.concat([sms_msgs, ig_msgs], ignore_index=True)
 
 # Convert timestamp_ms to datetime
 all_msgs['datetime'] = pd.to_datetime(all_msgs['timestamp_ms'], unit='ms')
-all_msgs['datetime'] = all_msgs['datetime'].dt.tz_localize('Etc/GMT+8')
+all_msgs['datetime'] = all_msgs['datetime'].dt.tz_localize('Etc/GMT-8')
 all_msgs['datetime'] = all_msgs['datetime'].dt.floor('s')
 
 # Replace names in the 'sent_by' column
