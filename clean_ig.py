@@ -72,6 +72,9 @@ ig_msgs = pd.read_csv('intermediate_data/ig_msgs.csv')
 sms_msgs = sms_msgs.rename(columns={'date': 'timestamp_ms', 'author': 'sent_by', 'body': 'content'})
 ig_msgs = ig_msgs.rename(columns={'sender_name': 'sent_by'})
 
+# Convert timestamp_ms to datetime
+sms_msgs['datetime'] = pd.to_datetime(sms_msgs['timestamp_ms'], unit='ms')
+
 # Concatenate the two dataframes
 all_msgs = pd.concat([sms_msgs, ig_msgs], ignore_index=True)
 
@@ -79,4 +82,4 @@ all_msgs = pd.concat([sms_msgs, ig_msgs], ignore_index=True)
 all_msgs['sent_by'] = all_msgs['sent_by'].replace(['Nathan k', 'Bernice Lau'], ['Nathan', 'Bernice'])
 
 # Save the resulting dataframe
-all_msgs[['timestamp_ms', 'sent_by', 'content', 'reaction']].to_csv('intermediate_data/all_msgs.csv', index=False)
+all_msgs[['datetime', 'sent_by', 'content', 'reaction']].to_csv('intermediate_data/all_msgs.csv', index=False)
