@@ -26,7 +26,7 @@ all_words = [word for tokens in df['tokens'] for word in tokens]
 stop_words = set(stopwords.words('english'))
 non_stop_words = [word for word in all_words if word not in stop_words and word.isalpha()]
 word_counts = Counter(non_stop_words)
-top_10_uncommon_words = word_counts.most_common(10)
+top_10_uncommon_words = word_counts.most_common(15)
 print("\nThe top 10 most common uncommon words are:")
 for word, count in top_10_uncommon_words:
     print(f"'{word}' appears {count} times")
@@ -34,7 +34,7 @@ for word, count in top_10_uncommon_words:
 # Top 5 most common phrases
 all_ngrams = [ngram for tokens in df['tokens'] for ngram in ngrams(tokens, 5)]
 ngram_counts = Counter(all_ngrams)
-top_5_phrases = ngram_counts.most_common(5)
+top_5_phrases = ngram_counts.most_common(10)
 print("\nThe top 5 most common phrases are:")
 for phrase, count in top_5_phrases:
     print(f"'{' '.join(phrase)}' appears {count} times")
@@ -49,7 +49,7 @@ pet_name_counts = {name: 0 for name in pet_names}
 for name in pet_names:
     df[name] = df['content'].str.contains(name, case=False)
     pet_name_counts[name] = df[name].sum()
-top_5_pet_names = sorted(pet_name_counts.items(), key=lambda x: x[1], reverse=True)[:5]
+top_5_pet_names = sorted(pet_name_counts.items(), key=lambda x: x[1], reverse=True)[:10]
 
 print("\nThe top 5 pet names are:")
 for name, count in top_5_pet_names:
