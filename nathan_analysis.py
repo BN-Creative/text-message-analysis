@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # %%
-HOME = '../'
+HOME = './'
 MSGS = HOME + 'intermediate_data/all_msgs.csv'
 
 # %%
@@ -64,17 +64,20 @@ b_emojis_df = emojis_df[emojis_df['sent_by'] == 'Bernice']
 b_counts_df = counts_and_percentages(b_emojis_df)
 
 # %%
-print(len(total_counts_df))
-print(total_counts_df['count'].sum())
-total_counts_df.head(10)
+print('\n\n')
+print('--------')
+
+print('total unique emojis: ', len(total_counts_df))
+print('total emojis sent: ', total_counts_df['count'].sum())
+print(total_counts_df.head(10))
 
 # %%
-print(len(n_counts_df))
-n_counts_df.head(10)
+print('N unique emojis: ', len(n_counts_df))
+print(n_counts_df.head(10))
 
 # %%
-print(len(b_counts_df))
-b_counts_df.head(10)
+print('B unique emojis: ', len(b_counts_df))
+print(b_counts_df.head(10))
 
 # %%
 all_emojis = set(total_counts_df['emoji'])
